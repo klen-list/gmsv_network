@@ -1,0 +1,78 @@
+name: Build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Install Premake
+      run: |
+        wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-linux.tar.gz -O premake.tar.gz
+        sudo tar -xvf premake.tar.gz --directory=/usr/bin
+        sudo apt-get update
+        sudo apt-get install gcc-multilib g++-multilib
+        gcc --version
+
+    - name: Generate Project
+      run: |
+        premake5 gmake
+
+    - name: Building
+      run: |
+        cd projects/linux/gmake
+        make -j2 && make -j2 config=releasewithsymbols_x86_64
+
+    - name: Upload x86
+      uses: actions/upload-artifact@v2
+      with:
+        name: gmsv_network_linux.dll
+        path: projects/linux/gmake/x86/ReleaseWithSymbols/gmsv_network_linux.dll
+
+    - name: Upload x64
+      uses: actions/upload-artifact@v2
+      with:
+        name: gmsv_network_linux64.dll
+        path: projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_network_linux64.dll
+
+  windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Install Premake
+      run: |
+         curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip -o premake.zip
+         tar -xf premake.zip
+
+    - name: Generate Project
+      run: |
+        ./premake5.exe vs2019
+
+    - name: Building
+      run: |
+        cd projects/windows/vs2019
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
+
+    - name: Upload x86
+      uses: actions/upload-artifact@v2
+      with:
+        name: gmsv_network_win32.dll
+        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
+
+    - name: Upload x64
+      uses: actions/upload-artifact@v2
+      with:
+        name: gmsv_network_win64.dll
+        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
