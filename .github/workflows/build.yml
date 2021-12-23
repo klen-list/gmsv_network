@@ -63,16 +63,9 @@ jobs:
       run: |
         cd projects/windows/vs2019
         & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
 
     - name: Upload x86
       uses: actions/upload-artifact@v2
       with:
         name: gmsv_network_win32.dll
         path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
-
-    - name: Upload x64
-      uses: actions/upload-artifact@v2
-      with:
-        name: gmsv_network_win64.dll
-        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
