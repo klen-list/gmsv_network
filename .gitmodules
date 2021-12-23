@@ -1,0 +1,6 @@
+[submodule "third-party/lua_threading"]
+	path = third-party/lua_threading
+	url = https://github.com/dankmolot/LuaThreading
+[submodule "third-party/garrysmod_common"]
+	path = third-party/garrysmod_common
+	url = https://github.com/danielga/garrysmod_common
