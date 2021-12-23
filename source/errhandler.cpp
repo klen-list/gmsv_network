@@ -35,22 +35,22 @@ void GmNetwork::ErrHandler::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	const auto HandleClientLuaError = FunctionPointers::CBasePlayer_HandleClientLuaError();
 	if (!HandleClientLuaError)
-		ILuaServer->ThrowError("Unable to locate CBasePlayer::HandleClientLuaError!");
+		LUA->ThrowError("Unable to locate CBasePlayer::HandleClientLuaError!");
 
 	if (!DHook_HandleClientError.Create(
 		Detouring::Hook::Target(reinterpret_cast<void*>(HandleClientLuaError)),
 		reinterpret_cast<void*>(&Detour_HandleClientError)
 	))
-		ILuaServer->ThrowError("Unable to detour CBasePlayer::HandleClientLuaError!");
+		LUA->ThrowError("Unable to detour CBasePlayer::HandleClientLuaError!");
 
 	LUA->PushCFunction(EnableClientErrHandle);
 	LUA->SetField(-2, "EnableClientErrHandle");
 
-	ILuaServer->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: HandleClientLuaError detoured.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: HandleClientLuaError detoured.\n");
 }
 
 void GmNetwork::ErrHandler::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	DHook_HandleClientError.Destroy();
-	ILuaServer->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: HandleClientLuaError undetoured.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: HandleClientLuaError undetoured.\n");
 }
