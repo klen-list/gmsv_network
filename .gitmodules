@@ -4,6 +4,3 @@
 [submodule "third-party/garrysmod_common"]
 	path = third-party/garrysmod_common
 	url = https://github.com/danielga/garrysmod_common
-[submodule "garrysmod_common"]
-	path = garrysmod_common
-	url = https://github.com/danielga/garrysmod_common
