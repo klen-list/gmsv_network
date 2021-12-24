@@ -5,7 +5,7 @@ Detouring::Hook GmNetwork::ErrHandler::DHook_HandleClientError;
 
 void GmNetwork::ErrHandler::Detour_HandleClientError(CBasePlayer* ply, const char* err)
 {
-	if (!LuaQuicks::PushHookCall(ILuaServer, "GmNetwork_OnClientErr"))
+	if (!LuaQuicks::PushHookCall(ILuaServer, "GmNetwork.OnClientErr"))
 		return DHook_HandleClientError.GetTrampoline<FunctionPointers::CBasePlayer_HandleClientLuaError_t>()(ply, err);
 
 	ILuaServer->PushNumber(ply->entindex());
@@ -28,7 +28,7 @@ LUA_FUNCTION_STATIC(EnableClientErrHandle)
 	LUA->PushBool(LUA->GetBool(1) ?
 		GmNetwork::ErrHandler::DHook_HandleClientError.Enable() :
 		GmNetwork::ErrHandler::DHook_HandleClientError.Disable());
-	return 0;
+	return 1;
 }
 
 void GmNetwork::ErrHandler::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
