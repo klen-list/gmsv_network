@@ -14,6 +14,7 @@ include(gmcommon)
 CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
 		IncludeHelpersExtended()
+		IncludeSDKCommon()
 		IncludeDetouring()
 
 		includedirs "third-party/lua_threading"
