@@ -19,12 +19,12 @@ jobs:
       - name: Generate Project
         run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
 
-      - name: [x32] Build Release With Symbols
+      - name: "[x64] Build Release With Symbols"
         run: |
           cd projects/linux/gmake
           make -j2 config=releasewithsymbols_x86_64
 
-      - name: [x64] Build Release With Symbols
+      - name: "[x32] Build Release With Symbols"
         run: |
           cd projects/linux/gmake
           make -j2 config=releasewithsymbols_x86
