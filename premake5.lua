@@ -14,6 +14,7 @@ include(gmcommon)
 CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
 		IncludeHelpersExtended()
+		IncludeSDKTier0()
 		IncludeSDKCommon()
 		IncludeDetouring()
 
