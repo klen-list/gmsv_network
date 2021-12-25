@@ -10,7 +10,6 @@
 #include <GarrysMod/Lua/Interface.h>
 #include <GarrysMod/Lua/LuaInterface.h>
 #include <GarrysMod/FunctionPointers.hpp>
-#include <Garrysmod/InterfacePointers.hpp>
 
 #include <detouring/hook.hpp>
 
