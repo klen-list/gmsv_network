@@ -1,4 +1,7 @@
 #include "server.hpp"
+#include <iclient.h>
+
+#include <GarrysMod/Lua/LuaObject.h>
 
 CBaseServer* GmNetwork::Server::p_Server = nullptr;
 
@@ -103,15 +106,23 @@ LUA_FUNCTION_STATIC(DisconnectClient)
 {
 	LUA->CheckNumber(1);
 	LUA->CheckString(2);
-	int clientIdx = LUA->GetNumber(1);
-	IClient* client = GmNetwork::Server::p_Server->GetClient(clientIdx);
-	if (!client) {
+	int inUserID = LUA->GetNumber(1);
+	if (inUserID <= 0) {
 		LUA->PushBool(false);
 		return 1;
 	}
-	const char* reason = LUA->GetString(2);
-	GmNetwork::Server::p_Server->DisconnectClient(client, reason);
-	LUA->PushBool(true);
+	for (auto nSlot = 0; nSlot < GmNetwork::Server::p_Server->GetClientCount(); ++nSlot) {
+		IClient* client = GmNetwork::Server::p_Server->GetClient(nSlot);
+		if (!client->IsConnected()) continue;
+		if (client->GetUserID() == inUserID) {
+			const char* reason = LUA->GetString(2);
+			GmNetwork::Server::p_Server->DisconnectClient(client, reason);
+			LUA->PushBool(true);
+			return 1;
+		}
+	}
+	reinterpret_cast<GarrysMod::Lua::ILuaInterface*>(LUA)->Msg("[GmNetwork] Client with userid %i not exists.\n", inUserID);
+	LUA->PushBool(false);
 	return 1;
 }
 

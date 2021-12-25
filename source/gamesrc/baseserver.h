@@ -2,7 +2,7 @@
 #define BASESERVER_H
 
 #ifdef _WIN32
-#pragma once
+	#pragma once
 #endif
 
 #include <iserver.h>
