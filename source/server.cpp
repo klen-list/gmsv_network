@@ -1,5 +1,4 @@
 #include "server.hpp"
-#include <Garrysmod/InterfacePointers.hpp>
 
 CBaseServer* GmNetwork::Server::p_Server = nullptr;
 
