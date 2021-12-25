@@ -35,3 +35,4 @@ jobs:
           name: ReleaseWithSymbols
           path: 
             projects/linux/gmake/x86_64/ReleaseWithSymbols/${{env.MODULE_PREFIX}}_${{env.MODULE_NAME}}_linux64.dll
+            projects/linux/gmake/x86/ReleaseWithSymbols/${{env.MODULE_PREFIX}}_${{env.MODULE_NAME}}_linux32.dll
