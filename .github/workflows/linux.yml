@@ -9,7 +9,7 @@ env:
 
 jobs:
   linux64:
-    runs-on: [self-hosted, linux, x64, gmod-module-ready]
+    runs-on: [self-hosted, linux, x64, debian10, gmod-module-ready]
 
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Generate project
-        run: premake5 gmake --gmcommon="~/garrysmod_common"
+        run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
       
       - name: Build Debug
         run: |
