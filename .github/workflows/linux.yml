@@ -18,7 +18,7 @@ jobs:
 
       - name: Generate Project
         run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
-      
+
       - name: [x32] Build Release With Symbols
         run: |
           cd projects/linux/gmake
