@@ -1,0 +1,31 @@
+name: Linux
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  MODULE_PREFIX: gmsv
+  MODULE_NAME: network
+
+jobs:
+  linux64:
+    runs-on: [self-hosted, linux, x64, gmod-module-ready]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Generate project
+        run: premake5 gmake --gmcommon="~/garrysmod_common"
+      
+      - name: Build Debug
+        run: |
+          cd projects/linux/gmake
+          make -j config=debug_x86_64
+
+      - name: Upload builds
+        uses: actions/upload-artifact@v2
+        with:
+          name: Debug
+          path: projects/linux/gmake/x86_64/Debug/${{env.MODULE_PREFIX}}_${{env.MODULE_NAME}}_linux64.dll
