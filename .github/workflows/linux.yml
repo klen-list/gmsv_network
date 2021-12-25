@@ -16,38 +16,22 @@ jobs:
         with:
           submodules: 'recursive'
 
-      - name: Generate project
+      - name: Generate Project
         run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
       
-      - name: Build Release With Symbols
+      - name: [x32] Build Release With Symbols
         run: |
           cd projects/linux/gmake
           make -j2 config=releasewithsymbols_x86_64
 
-      - name: Upload builds
-        uses: actions/upload-artifact@v2
-        with:
-          name: ReleaseWithSymbolds
-          path: projects/linux/gmake/x86_64/ReleaseWithSymbolds/${{env.MODULE_PREFIX}}_${{env.MODULE_NAME}}_linux64.dll
-
-  linux32:
-    runs-on: [self-hosted, linux, x64, debian10, gmod-module-ready]
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-
-      - name: Generate project
-        run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
-      
-      - name: Build Release With Symbols
+      - name: [x64] Build Release With Symbols
         run: |
           cd projects/linux/gmake
           make -j2 config=releasewithsymbols_x86
 
-      - name: Upload builds
+      - name: Upload Builds
         uses: actions/upload-artifact@v2
         with:
-          name: ReleaseWithSymbolds
-          path: projects/linux/gmake/x86/ReleaseWithSymbolds/${{env.MODULE_PREFIX}}_${{env.MODULE_NAME}}_linux32.dll
+          name: ReleaseWithSymbols
+          path: 
+            projects/linux/gmake/x86_64/ReleaseWithSymbols/${{env.MODULE_PREFIX}}_${{env.MODULE_NAME}}_linux64.dll
