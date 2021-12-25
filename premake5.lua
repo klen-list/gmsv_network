@@ -13,8 +13,6 @@ include(gmcommon)
 
 CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
-		IncludeSDKCommon()
 		IncludeDetouring()
 
-		
 		includedirs "third-party/lua_threading"
