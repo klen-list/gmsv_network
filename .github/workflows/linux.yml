@@ -19,10 +19,10 @@ jobs:
       - name: Generate project
         run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
       
-      - name: Build Debug
+      - name: Build Release with Symbols
         run: |
           cd projects/linux/gmake
-          make -j config=debug_x86_64
+          make -j config=releasewithsymbols_x86_64
 
       - name: Upload builds
         uses: actions/upload-artifact@v2
