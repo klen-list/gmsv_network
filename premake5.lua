@@ -7,21 +7,14 @@ newoption {
 } 
 
 gmcommon = _OPTIONS.gmcommon or os.getenv "GARRYSMOD_COMMON"
+assert(gmcommon, "You didn't provide a path to your garrysmod_common (https://github.com/danielga/garrysmod_common) directory.")
 
-if not gmcommon then
-    print "You didn't provide a path to your garrysmod_common (https://github.com/danielga/garrysmod_common) directory. Using built in instead."
-end
-
-include(gmcommon or "third-party/garrysmod_common")
+include(gmcommon)
 
 CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
-		IncludeLuaShared()
-		IncludeHelpersExtended()
 		IncludeSDKCommon()
-		IncludeSDKTier0()
-		IncludeSDKTier1()
 		IncludeDetouring()
-		IncludeScanning()
+
 		
 		includedirs "third-party/lua_threading"
