@@ -43,8 +43,7 @@ void GmNetwork::ErrHandler::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 	))
 		LUA->ThrowError("Unable to detour CBasePlayer::HandleClientLuaError!");
 
-	LUA->PushCFunction(EnableClientErrHandle);
-	LUA->SetField(-2, "EnableClientErrHandle");
+	PUSHFUNC(EnableClientErrHandle)
 
 	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: HandleClientLuaError detoured.\n");
 }

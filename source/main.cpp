@@ -1,16 +1,11 @@
 #include "main.hpp"
 #include "luaquicks.hpp"
 #include "errhandler.hpp"
+#include "server.hpp"
 
 using namespace GmNetwork;
 
 GarrysMod::Lua::ILuaInterface* GmNetwork::ILuaServer;
-
-LUA_FUNCTION_STATIC(Version)
-{
-	LUA->PushString(_MODULE_VERSION_);
-	return 1;
-}
 
 GMOD_MODULE_OPEN()
 {
@@ -18,10 +13,11 @@ GMOD_MODULE_OPEN()
 
 	ILuaServer->CreateTable();
 
-		ILuaServer->PushCFunction(Version);
-		ILuaServer->SetField(-2, "Version");
+	ILuaServer->PushString(_MODULE_VERSION_);
+	ILuaServer->SetField(-2, "Version");
 
-		ErrHandler::Initialize(ILuaServer);
+	ErrHandler::Initialize(ILuaServer);
+	Server::Initialize(ILuaServer);
 
 	ILuaServer->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
 
@@ -33,7 +29,9 @@ GMOD_MODULE_OPEN()
 GMOD_MODULE_CLOSE()
 {
 	ErrHandler::Deinitialize(ILuaServer);
+	Server::Deinitialize(ILuaServer);
 	LUA->PushNil();
 	LUA->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
+	ILuaServer = nullptr;
 	return 0;
 }
