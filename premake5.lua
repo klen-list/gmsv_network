@@ -15,6 +15,7 @@ CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
 		IncludeHelpersExtended()
 		IncludeSDKTier0()
+		IncludeSDKTier1()
 		IncludeSDKCommon()
 		IncludeDetouring()
 
