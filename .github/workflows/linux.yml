@@ -3,10 +3,6 @@ on:
   push:
   workflow_dispatch:
 
-env:
-  MODULE_PREFIX: gmsv
-  MODULE_NAME: network
-
 jobs:
   linux:
     runs-on: [self-hosted, linux, x64, debian10, gmod-module-ready]
@@ -34,4 +30,5 @@ jobs:
         with:
           name: ReleaseWithSymbols
           path: 
-            projects/linux/gmake/**/*.dll
+            projects/linux/gmake/x86/ReleaseWithSymbols/gmsv_network_linux.dll
+            projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_network_linux64.dll
