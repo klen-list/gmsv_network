@@ -4,6 +4,7 @@ assert(CI, 'tests expected to be running on configured dedicated server')
 
 local function run_tests()
     require('network')
+    error('error')
 end
 
 print('Running tests')
