@@ -88,7 +88,11 @@ jobs:
         working-directory: ${{ env.GMOD }}
         run: |
           tree garrysmod/lua/bin
+
+          echo ldd x64
           LD_LIBRARY_PATH=.:bin/linux64:$LD_LIBRARY_PATH ldd -r garrysmod/lua/bin/gmsv_network_linux64.dll
+          
+          echo ldd x32
           LD_LIBRARY_PATH=.:bin/linux32:$LD_LIBRARY_PATH ldd -r garrysmod/lua/bin/gmsv_network_linux.dll
 
       - name: Cleanup
