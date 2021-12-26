@@ -45,7 +45,9 @@ jobs:
         # with:
         #   submodules: 'recursive'
 
-      - run: echo ${{env.GMOD}}
+      - name: Setup Enviroment Variables
+        run: |
+          echo GMOD=$GMOD >> $GITHUB_ENV
       
       - name: Download Artifacts
         uses: actions/download-artifact@v2
