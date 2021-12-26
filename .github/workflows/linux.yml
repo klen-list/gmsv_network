@@ -32,8 +32,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ReleaseWithSymbols
-          path: 
+          path: |
             projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_network_linux64.dll
+            projects/linux/gmake/x86/ReleaseWithSymbols/gmsv_network_linux.dll
 
   
   tests:
