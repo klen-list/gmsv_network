@@ -14,7 +14,7 @@ jobs:
 
       - name: Generate Project x64
         run: |
-          $PREMAKE5 gmake --gmcommon="${GARRYSMOD_COMMON64}"
+          premake5 gmake --gmcommon="${GARRYSMOD_COMMON64}"
 
       - name: "[x64] Build Release With Symbols"
         run: |
@@ -22,7 +22,7 @@ jobs:
           make -j2 config=releasewithsymbols_x86_64
 
       - name: Generate Project x32
-        run: $PREMAKE5 gmake --gmcommon="${GARRYSMOD_COMMON}"
+        run: premake5 gmake --gmcommon="${GARRYSMOD_COMMON}"
 
       - name: "[x32] Build Release With Symbols"
         run: |
