@@ -70,20 +70,18 @@ jobs:
       - name: Run Garrysmod x64
         working-directory: ${{ env.GMOD }}
         timeout-minutes: 5
-        run: rm -f garrysmod/data/success.txt && ./start64.sh
-
-      - name: Check If Test Successful
-        working-directory: ${{ env.GMOD }}
-        run: if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
+        run: |
+          rm -f garrysmod/data/success.txt
+          ./start62.sh
+          if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
 
       - name: Run Garrysmod x32
         working-directory: ${{ env.GMOD }}
         timeout-minutes: 5
-        run: rm -f garrysmod/data/success.txt && ./start.sh
-
-      - name: Check If Test Successful
-        working-directory: ${{ env.GMOD }}
-        run: if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
+        run: |
+          rm -f garrysmod/data/success.txt
+          ./start.sh
+          if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
 
       - name: Debug Information
         if: failure()
@@ -93,6 +91,9 @@ jobs:
           tree garrysmod/addons
           tree garrysmod/lua/bin
           tree garrysmod/data
+
+          LD_LIBRARY_PATH=.:bin/linux64:$LD_LIBRARY_PATH ldd -r garrysmod/lua/bin/gmsv_network_linux64.dll
+          LD_LIBRARY_PATH=.:bin/linux32:$LD_LIBRARY_PATH ldd -r garrysmod/lua/bin/gmsv_network_linux.dll
 
       - name: Cleanup
         if: always()
