@@ -20,6 +20,13 @@ jobs:
           cd projects/linux/gmake
           make -j2 config=releasewithsymbols_x86_64
 
+      - name: Upload Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: ReleaseWithSymbols
+          if-no-files-found: error
+          path: projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_network_linux64.dll
+
       - name: Generate Project x32
         run: $PREMAKE5 gmake --gmcommon="${GARRYSMOD_COMMON}"
 
@@ -28,13 +35,12 @@ jobs:
           cd projects/linux/gmake
           make -j2 config=releasewithsymbols_x86
 
-      - name: Upload Builds
+      - name: Upload Build
         uses: actions/upload-artifact@v2
         with:
           name: ReleaseWithSymbols
-          path: |
-            projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_network_linux64.dll
-            projects/linux/gmake/x86/ReleaseWithSymbols/gmsv_network_linux.dll
+          if-no-files-found: error
+          path: projects/linux/gmake/x86/ReleaseWithSymbols/gmsv_network_linux.dll
 
   
   tests:
