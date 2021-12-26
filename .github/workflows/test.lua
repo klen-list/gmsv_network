@@ -3,8 +3,7 @@ timer.Simple(0, engine.CloseServer)
 assert(CI, 'tests expected to be running on configured dedicated server')
 
 local function run_tests()
-    assert(pcall(require, 'network'))
-    error('error')
+    require('network')
 end
 
 print('Running tests')
