@@ -72,7 +72,7 @@ jobs:
         timeout-minutes: 5
         run: |
           rm -f garrysmod/data/success.txt
-          ./start62.sh
+          ./start64.sh
           if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
 
       - name: Run Garrysmod x32
