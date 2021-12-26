@@ -34,3 +34,8 @@ jobs:
           name: ReleaseWithSymbols
           path: 
             projects/linux/gmake/**/*.dll
+            
+      - run: |
+          echo $CI $GITHUB_WORKFLOW
+          echo ======================
+          env
