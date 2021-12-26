@@ -45,7 +45,7 @@ jobs:
         # with:
         #   submodules: 'recursive'
 
-      - run: env
+      - run: echo ${{env.GMOD}}
       
       - name: Download Artifacts
         uses: actions/download-artifact@v2
