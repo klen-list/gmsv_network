@@ -85,6 +85,15 @@ jobs:
         working-directory: ${{ env.GMOD }}
         run: if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
 
+      - name: Debug Information
+        if: failure()
+        working-directory: ${{ env.GMOD }}
+        run: |
+          env
+          tree garrysmod/addons
+          tree garrysmod/lua/bin
+          tree garrysmod/data
+
       - name: Cleanup
         if: always()
         working-directory: ${{ env.GMOD }}
