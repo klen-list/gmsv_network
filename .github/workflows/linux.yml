@@ -64,7 +64,7 @@ jobs:
       - name: Run Garrysmod x64
         working-directory: ${{ env.GMOD }}
         timeout-minutes: 5
-        run: rm garrysmod/data/success.txt && ./start64.sh
+        run: rm -f garrysmod/data/success.txt && ./start64.sh
 
       - name: Check If Test Successful
         working-directory: ${{ env.GMOD }}
@@ -73,7 +73,7 @@ jobs:
       - name: Run Garrysmod x32
         working-directory: ${{ env.GMOD }}
         timeout-minutes: 5
-        run: rm garrysmod/data/success.txt && ./start.sh
+        run: rm -f garrysmod/data/success.txt && ./start.sh
 
       - name: Check If Test Successful
         working-directory: ${{ env.GMOD }}
