@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  linux:
-    runs-on: [self-hosted, linux, x64, debian10, gmod-module-ready]
+  build:
+    runs-on: [self-hosted, linux, x64, debian10, premake5, garrysmod_common]
 
     steps:
       - uses: actions/checkout@v2
@@ -13,7 +13,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Generate Project x64
-        run: premake5 gmake --gmcommon="$HOME/garrysmod_common_x86_64"
+        run: premake5 gmake --gmcommon="$GARRYSMOD_COMMON64"
 
       - name: "[x64] Build Release With Symbols"
         run: |
@@ -21,7 +21,7 @@ jobs:
           make -j2 config=releasewithsymbols_x86_64
 
       - name: Generate Project x32
-        run: premake5 gmake --gmcommon="$HOME/garrysmod_common"
+        run: premake5 gmake --gmcommon="$GARRYSMOD_COMMON"
 
       - name: "[x32] Build Release With Symbols"
         run: |
@@ -33,9 +33,38 @@ jobs:
         with:
           name: ReleaseWithSymbols
           path: 
-            projects/linux/gmake/**/*.dll
-            
-      - run: |
-          echo $CI $GITHUB_WORKFLOW
-          echo ======================
-          env
+            projects/linux/gmake/x86_64/ReleaseWithSymbols/gmsv_network_linux64.dll
+
+  
+  tests:
+    needs: build
+    runs-on: [self-hosted, linux, x64, debian10, gmod]
+
+    steps:
+      - uses: actions/checkout@v2
+        # with:
+        #   submodules: 'recursive'
+      
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ReleaseWithSymbols
+          path: ${{ env.GMOD }}/garrysmod/lua/bin/
+      
+      - name: Copy test.lua
+        run: |
+          mkdir -p $GMOD/garrysmod/addons/test/lua/autorun/
+          cp .github/workflows/test.lua $GMOD/garrysmod/addons/test/lua/autorun/
+
+      - name: Run Garrysmod x64
+        working-directory: ${{ env.GMOD }}
+        timeout-minutes: 5
+        run: ./start64.sh
+      
+      - name: Print Log
+        working-directory: ${{ env.GMOD }}
+        run: cat garrysmod/console.log
+
+      - name: Check If Test Successful
+        working-directory: ${{ env.GMOD }}
+        run: if [[ $(< garrysmod/data/success.txt) != "$GITHUB_SHA" ]]; then exit 1; fi
