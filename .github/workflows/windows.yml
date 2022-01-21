@@ -1,0 +1,64 @@
+name: Windows
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    
+    - name: Clone garrysmod_common/master
+      uses: actions/checkout@v2
+      with:
+        repository: 'danielga/garrysmod_common'
+        ref: 'master'
+        path: 'third-party/garrysmod_common'
+        submodules: 'recursive'
+
+    - name: Install Premake
+      run: |
+         curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip -o premake.zip
+         tar -xf premake.zip
+
+    - name: Generate Project x32
+      run: |
+        ./premake5.exe vs2019
+
+    - name: Building x32
+      run: |
+        cd projects/windows/vs2019
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
+
+    - name: Uploading x32
+      uses: actions/upload-artifact@v2
+      with:
+        name: Windows x32
+        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
+        
+    - name: Clone garrysmod_common/x86-64-support-sourcesdk
+      uses: actions/checkout@v2
+      with:
+        repository: 'danielga/garrysmod_common'
+        ref: 'x86-64-support-sourcesdk'
+        path: 'third-party/garrysmod_common'
+        submodules: 'recursive'
+    
+    - name: Generate Project x64
+      run: |
+        ./premake5.exe vs2019
+
+    - name: Building x64
+      run: |
+        cd projects/windows/vs2019
+        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
+
+    - name: Uploading x64
+      uses: actions/upload-artifact@v2
+      with:
+        name: Windows x64
+        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
