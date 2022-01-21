@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  linux:
     runs-on: [self-hosted, debian10, premake5, garrysmod_common]
 
     steps:

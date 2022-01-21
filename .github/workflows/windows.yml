@@ -25,19 +25,20 @@ jobs:
          curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip -o premake.zip
          tar -xf premake.zip
 
-    - name: Generate Project x32
+    - name: [x32] Generate Project
       run: |
         ./premake5.exe vs2019
 
-    - name: Building x32
+    - name: [x32] Building
       run: |
         cd projects/windows/vs2019
         & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
 
-    - name: Uploading x32
+    - name: [x32] Uploading
       uses: actions/upload-artifact@v2
       with:
-        name: Windows x32
+        name: gmsv_network_win32.dll
+        if-no-files-found: error
         path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
         
     - name: Clone garrysmod_common/x86-64-support-sourcesdk
@@ -48,17 +49,18 @@ jobs:
         path: 'third-party/garrysmod_common'
         submodules: 'recursive'
     
-    - name: Generate Project x64
+    - name: [x64] Generate Project
       run: |
         ./premake5.exe vs2019
 
-    - name: Building x64
+    - name: [x64] Building
       run: |
         cd projects/windows/vs2019
         & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
 
-    - name: Uploading x64
+    - name: [x64] Uploading
       uses: actions/upload-artifact@v2
       with:
-        name: Windows x64
+        name: gmsv_network_win64.dll
+        if-no-files-found: error
         path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
