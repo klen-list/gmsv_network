@@ -25,16 +25,16 @@ jobs:
          curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip -o premake.zip
          tar -xf premake.zip
 
-    - name: [x32] Generate Project
+    - name: "[x32] Generate Project"
       run: |
         ./premake5.exe vs2019
 
-    - name: [x32] Building
+    - name: "[x32] Building"
       run: |
         cd projects/windows/vs2019
         & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
 
-    - name: [x32] Uploading
+    - name: "[x32] Uploading"
       uses: actions/upload-artifact@v2
       with:
         name: gmsv_network_win32.dll
@@ -49,16 +49,16 @@ jobs:
         path: 'third-party/garrysmod_common'
         submodules: 'recursive'
     
-    - name: [x64] Generate Project
+    - name: "[x64] Generate Project"
       run: |
         ./premake5.exe vs2019
 
-    - name: [x64] Building
+    - name: "[x64] Building"
       run: |
         cd projects/windows/vs2019
         & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
 
-    - name: [x64] Uploading
+    - name: "[x64] Uploading"
       uses: actions/upload-artifact@v2
       with:
         name: gmsv_network_win64.dll
