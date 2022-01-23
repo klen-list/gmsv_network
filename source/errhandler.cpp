@@ -45,11 +45,11 @@ void GmNetwork::ErrHandler::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 
 	PUSHFUNC(EnableClientErrHandle)
 
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: HandleClientLuaError detoured.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: CBasePlayer::HandleClientLuaError detoured.\n");
 }
 
 void GmNetwork::ErrHandler::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	DHook_HandleClientError.Destroy();
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: HandleClientLuaError undetoured.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: CBasePlayer::HandleClientLuaError undetoured.\n");
 }
