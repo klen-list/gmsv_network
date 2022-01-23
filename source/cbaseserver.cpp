@@ -1,9 +1,7 @@
-#include "server.hpp"
+#include "cbaseserver.hpp"
 #include <iclient.h>
 
-#include <GarrysMod/Lua/LuaObject.h>
-
-CBaseServer* GmNetwork::Server::p_Server = nullptr;
+CBaseServer* GmNetwork::BaseServer::p_BaseServer = nullptr;
 
 LUA_SERVERFUNC_RETNUM(GetNumClients)
 LUA_SERVERFUNC_RETNUM(GetNumProxies)
@@ -26,7 +24,7 @@ LUA_FUNCTION_STATIC(GetNetStats)
 
 	float& avgIn = in;
 	float& avgOut = out;
-	GmNetwork::Server::p_Server->GetNetStats(avgIn, avgOut);
+	GmNetwork::BaseServer::p_BaseServer->GetNetStats(avgIn, avgOut);
 
 	LUA->PushNumber(in);
 	LUA->PushNumber(out);
@@ -38,7 +36,7 @@ LUA_FUNCTION_STATIC(GetPlayerInfo)
 	LUA->CheckNumber(1);
 	int clientIdx = LUA->GetNumber(1);
 	player_info_t* pInfo = new player_info_t;
-	bool succ = GmNetwork::Server::p_Server->GetPlayerInfo(clientIdx, pInfo);
+	bool succ = GmNetwork::BaseServer::p_BaseServer->GetPlayerInfo(clientIdx, pInfo);
 	LUA->PushBool(succ);
 	if (!succ) return 1;
 	LUA->CreateTable();
@@ -85,21 +83,21 @@ LUA_FUNCTION_STATIC(SetMaxClients)
 {
 	LUA->CheckNumber(1);
 	int nMax = LUA->GetNumber(1);
-	GmNetwork::Server::p_Server->SetMaxClients(nMax);
+	GmNetwork::BaseServer::p_BaseServer->SetMaxClients(nMax);
 	return 0;
 }
 LUA_FUNCTION_STATIC(SetPaused)
 {
 	LUA->CheckType(1, GarrysMod::Lua::Type::Bool);
 	bool bPaused = LUA->GetBool(1);
-	GmNetwork::Server::p_Server->SetPaused(bPaused);
+	GmNetwork::BaseServer::p_BaseServer->SetPaused(bPaused);
 	return 0;
 }
 LUA_FUNCTION_STATIC(SetPassword)
 {
 	LUA->CheckString(1);
 	const char* newPassword = LUA->GetString(1);
-	GmNetwork::Server::p_Server->SetPassword(newPassword);
+	GmNetwork::BaseServer::p_BaseServer->SetPassword(newPassword);
 	return 0;
 }
 LUA_FUNCTION_STATIC(DisconnectClient)
@@ -111,12 +109,12 @@ LUA_FUNCTION_STATIC(DisconnectClient)
 		LUA->PushBool(false);
 		return 1;
 	}
-	for (auto nSlot = 0; nSlot < GmNetwork::Server::p_Server->GetClientCount(); ++nSlot) {
-		IClient* client = GmNetwork::Server::p_Server->GetClient(nSlot);
+	for (auto nSlot = 0; nSlot < GmNetwork::BaseServer::p_BaseServer->GetClientCount(); ++nSlot) {
+		IClient* client = GmNetwork::BaseServer::p_BaseServer->GetClient(nSlot);
 		if (!client->IsConnected()) continue;
 		if (client->GetUserID() == inUserID) {
 			const char* reason = LUA->GetString(2);
-			GmNetwork::Server::p_Server->DisconnectClient(client, reason);
+			GmNetwork::BaseServer::p_BaseServer->DisconnectClient(client, reason);
 			LUA->PushBool(true);
 			return 1;
 		}
@@ -126,7 +124,7 @@ LUA_FUNCTION_STATIC(DisconnectClient)
 	return 1;
 }
 
-void GmNetwork::Server::OpenLib(GarrysMod::Lua::ILuaInterface* LUA)
+void GmNetwork::BaseServer::OpenLib(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	PUSHFUNC(GetNumClients)
 	PUSHFUNC(GetNumProxies)
@@ -165,19 +163,23 @@ void GmNetwork::Server::OpenLib(GarrysMod::Lua::ILuaInterface* LUA)
 	PUSHFUNC(DisconnectClient)
 }
 
-void GmNetwork::Server::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
+void GmNetwork::BaseServer::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
-	p_Server = reinterpret_cast<CBaseServer*>(InterfacePointers::Server());
-	if (!p_Server)
+	IServer* p_IServer = InterfacePointers::Server();
+	if (!p_IServer)
 		LUA->ThrowError("Unable to locate IServer!");
+
+	p_BaseServer = reinterpret_cast<CBaseServer*>(p_IServer);
+	if (!p_BaseServer)
+		LUA->ThrowError("Unable to get CBaseServer!");
 
 	OpenLib(LUA);
 
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: IServer functions imported.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: CBaseServer functions imported.\n");
 }
 
-void GmNetwork::Server::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
+void GmNetwork::BaseServer::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
-	p_Server = nullptr;
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: IServer pointer destroyed.\n");
+	p_BaseServer = nullptr;
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: CBaseServer pointer destroyed.\n");
 }
