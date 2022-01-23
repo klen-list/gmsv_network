@@ -2,6 +2,7 @@
 #include "luaquicks.hpp"
 #include "errhandler.hpp"
 #include "cbaseserver.hpp"
+#include "engineserver.h"
 
 using namespace GmNetwork;
 
@@ -18,6 +19,7 @@ GMOD_MODULE_OPEN()
 
 	ErrHandler::Initialize(ILuaServer);
 	BaseServer::Initialize(ILuaServer);
+	EngineServer::Initialize(ILuaServer);
 
 	ILuaServer->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
 
@@ -30,8 +32,12 @@ GMOD_MODULE_CLOSE()
 {
 	ErrHandler::Deinitialize(ILuaServer);
 	BaseServer::Deinitialize(ILuaServer);
+	EngineServer::Deinitialize(ILuaServer);
+
 	LUA->PushNil();
 	LUA->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
+
 	ILuaServer = nullptr;
+
 	return 0;
 }
