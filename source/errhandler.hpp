@@ -1,7 +1,7 @@
 #ifndef GMNETWORK_ERRHANDLER_H
 #define GMNETWORK_ERRHANDLER_H
 
-#ifdef WIN32
+#ifdef _WIN32
 	#pragma once
 #endif
 

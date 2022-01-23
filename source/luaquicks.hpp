@@ -1,7 +1,7 @@
 #ifndef GMNETWORK_LUAQUICKS_H
 #define GMNETWORK_LUAQUICKS_H
 
-#ifdef WIN32
+#ifdef _WIN32
 	#pragma once
 #endif
 

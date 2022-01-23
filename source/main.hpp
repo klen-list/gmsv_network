@@ -1,7 +1,7 @@
 #ifndef GMNETWORK_MAIN_H
 #define GMNETWORK_MAIN_H
 
-#ifdef WIN32
+#ifdef _WIN32
 	#pragma once
 #endif
 
