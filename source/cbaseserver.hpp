@@ -1,5 +1,5 @@
-#ifndef GMNETWORK_SERVER_H
-#define GMNETWORK_SERVER_H
+#ifndef GMNETWORK_CBASESERVER_H
+#define GMNETWORK_CBASESERVER_H
 
 #ifdef _WIN32
 	#pragma once

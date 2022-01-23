@@ -15,6 +15,7 @@
 #include <detouring/hook.hpp>
 
 #include <player.h>
+#include <iclient.h>
 
 #define LUA_PUSHTYPEONCE(type, data) \
 LUA->Push##type(data); \

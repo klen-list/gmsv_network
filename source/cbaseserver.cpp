@@ -1,5 +1,4 @@
 #include "cbaseserver.hpp"
-#include <iclient.h>
 
 CBaseServer* GmNetwork::BaseServer::p_BaseServer = nullptr;
 
