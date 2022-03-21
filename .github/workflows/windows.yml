@@ -13,7 +13,7 @@ jobs:
         submodules: 'recursive'
         
     - name: Setup MSBuild
-      uses: warrenbuckley/Setup-MSBuild@v1
+      uses: microsoft/setup-msbuild@v1.1
     
     - name: Clone garrysmod_common/master
       uses: actions/checkout@v2
