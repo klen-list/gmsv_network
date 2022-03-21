@@ -11,6 +11,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: 'recursive'
+        
+    - name: Setup MSBuild
+      uses: warrenbuckley/Setup-MSBuild@v1
     
     - name: Clone garrysmod_common/master
       uses: actions/checkout@v2
@@ -31,8 +34,7 @@ jobs:
 
     - name: "[x32] Building"
       run: |
-        cd projects/windows/vs2019
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
+        cd projects/windows/vs2019 & msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
 
     - name: "[x32] Uploading"
       uses: actions/upload-artifact@v2
@@ -55,8 +57,7 @@ jobs:
 
     - name: "[x64] Building"
       run: |
-        cd projects/windows/vs2019
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
+        cd projects/windows/vs2019 & msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
 
     - name: "[x64] Uploading"
       uses: actions/upload-artifact@v2
