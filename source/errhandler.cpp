@@ -8,7 +8,7 @@ void GmNetwork::ErrHandler::Detour_HandleClientError(CBasePlayer* ply, const cha
 	if (!LuaQuicks::PushHookCall(ILuaServer, "GmNetwork.OnClientErr"))
 		return DHook_HandleClientError.GetTrampoline<FunctionPointers::CBasePlayer_HandleClientLuaError_t>()(ply, err);
 
-	ILuaServer->PushNumber(ply->entindex());
+	ILuaServer->PushNumber(ply->RequiredEdictIndex());
 	ILuaServer->PushString(err);
 
 	if (!LuaQuicks::RunHookCall(ILuaServer, 2, 1))
