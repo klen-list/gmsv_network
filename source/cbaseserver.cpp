@@ -1,8 +1,8 @@
 #include "cbaseserver.hpp"
+#include <inetchannel.h>
 
 CBaseServer* GmNetwork::BaseServer::p_BaseServer = nullptr;
-class CBaseClient : public IGameEventListener2, public IClient, public IClientMessageHandler
-{};
+class CBaseClient : public IGameEventListener2, public IClient, public IClientMessageHandler {};
 
 LUA_SERVERFUNC_RETNUM(GetNumClients)
 LUA_SERVERFUNC_RETNUM(GetNumProxies)
@@ -94,7 +94,7 @@ LUA_FUNCTION_STATIC(DisconnectClient)
 	return 1;
 }
 
-LUA_FUNCTION_STATIC(DisconnectClientNoShutdown)
+LUA_FUNCTION_STATIC(DisconnectClientSilent)
 {
 	int inUserID = LUA->CheckNumber(1);
 
@@ -102,6 +102,8 @@ LUA_FUNCTION_STATIC(DisconnectClientNoShutdown)
 		IClient* client = GmNetwork::BaseServer::p_BaseServer->GetClient(nSlot);
 		if (!client->IsConnected()) continue;
 		if (client->GetUserID() == inUserID) {
+			GmNetwork::BaseServer::p_BaseServer->RemoveClientFromGame(reinterpret_cast<CBaseClient*>(client));
+			client->GetNetChannel()->Shutdown(NULL);
 			client->Clear();
 			LUA->PushBool(true);
 			return 1;
@@ -148,7 +150,7 @@ void GmNetwork::BaseServer::OpenLib(GarrysMod::Lua::ILuaInterface* LUA)
 	PUSHFUNC(SetPaused)
 	PUSHFUNC(SetPassword)
 	PUSHFUNC(DisconnectClient)
-	PUSHFUNC(DisconnectClientNoShutdown)
+	PUSHFUNC(DisconnectClientSilent)
 }
 
 void GmNetwork::BaseServer::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
