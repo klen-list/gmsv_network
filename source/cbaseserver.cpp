@@ -98,6 +98,11 @@ LUA_FUNCTION_STATIC(DisconnectClientSilent)
 {
 	int inUserID = LUA->CheckNumber(1);
 
+	if (inUserID <= 0 || inUserID > GmNetwork::BaseServer::p_BaseServer->GetMaxClients()) {
+		LUA->PushBool(false);
+		return 1;
+	}
+
 	for (auto nSlot = 0; nSlot < GmNetwork::BaseServer::p_BaseServer->GetMaxClients(); ++nSlot) {
 		IClient* client = GmNetwork::BaseServer::p_BaseServer->GetClient(nSlot);
 		if (!client->IsConnected()) continue;
@@ -109,6 +114,8 @@ LUA_FUNCTION_STATIC(DisconnectClientSilent)
 			return 1;
 		}
 	}
+
+	GmNetwork::ILuaServer->Msg("[GmNetwork] Client with userid %i not exists.\n", inUserID);
 
 	LUA->PushBool(false);
 	return 1;
