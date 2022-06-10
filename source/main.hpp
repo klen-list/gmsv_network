@@ -5,7 +5,7 @@
 	#pragma once
 #endif
 
-#define _MODULE_VERSION_ "0.0.5"
+#define _MODULE_VERSION_ "0.0.6"
 
 #include <GarrysMod/Lua/Interface.h>
 #include <GarrysMod/Lua/LuaInterface.h>
