@@ -8,7 +8,6 @@ LUA_FUNCTION_STATIC(GMOD_RawServerCommand)
 	return 0;
 }
 
-
 void GmNetwork::EngineServer::OpenLib(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	PUSHFUNC(GMOD_RawServerCommand)
