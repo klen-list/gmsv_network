@@ -1,7 +1,7 @@
 #ifndef BASESERVER_H
 #define BASESERVER_H
 
-#ifdef _WIN32
+#ifdef SYSTEM_WINDOWS
 	#pragma once
 #endif
 
