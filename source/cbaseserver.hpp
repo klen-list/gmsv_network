@@ -6,7 +6,7 @@
 #endif
 
 #include "main.hpp"
-#include "gamesrc/baseserver.h"
+#include "sdk/baseserver.h"
 
 #define LUA_SERVERFUNC_RETNUM(name) \
 LUA_FUNCTION_STATIC(name) \
