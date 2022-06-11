@@ -2,7 +2,7 @@
 #include "luaquicks.hpp"
 #include "errhandler.hpp"
 #include "cbaseserver.hpp"
-#include "engineserver.h"
+#include "engineserver.hpp"
 
 using namespace GmNetwork;
 
