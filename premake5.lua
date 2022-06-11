@@ -13,6 +13,7 @@ if not gmcommon then
 end
 
 include(gmcommon or "third-party/garrysmod_common")
+include "third-party/lua_threading"
 
 CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
@@ -21,5 +22,4 @@ CreateWorkspace { name = "network" }
 		IncludeSDKTier1()
 		IncludeSDKCommon()
 		IncludeDetouring()
-
-		includedirs "third-party/lua_threading"
+		IncludeLuaThreading()
