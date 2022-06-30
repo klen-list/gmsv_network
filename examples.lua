@@ -1,4 +1,4 @@
-pcall(require, "network")
+ProtectedCall(function() require"network" end)
 
 if not istable(gmnetwork) then return end
 
@@ -29,9 +29,23 @@ do -- Close connection with clients (aka without disconnect message) on server s
 end
 
 do -- Bypass command blacklist without alias
+	-- Example 1
 	local cmd = "rcon_password "
 	for i = 12, 25 do
 		cmd = cmd .. string.char(math.random(97, 122))
 	end
 	gmnetwork.GMOD_RawServerCommand(cmd)
+	
+	-- Example 2
+	util.AddNetworkString"ingame_rcon"
+	net.Receive("ingame_rcon", function(l, ply)
+		if not IsValid(ply) then return end
+		if not ply:IsFullyAuthenticated() then return end
+		if not ply:IsSuperAdmin() then return end
+		
+		local rawcmd = net.ReadString()
+		if not isstring(rawcmd) or rawcmd:len() == 0 then return end
+			
+		gmnetwork.GMOD_RawServerCommand(rawcmd)
+	end)
 end
