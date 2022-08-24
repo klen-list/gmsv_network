@@ -73,7 +73,7 @@ LUA_FUNCTION_STATIC(DisconnectClient)
 	int inUserID = LUA->CheckNumber(1);
 	const char* reason = LUA->CheckString(2);
 
-	if (inUserID <= 0 || inUserID > GmNetwork::BaseServer::p_BaseServer->GetMaxClients()) {
+	if (inUserID <= 0) {
 		LUA->PushBool(false);
 		return 1;
 	}
@@ -98,7 +98,7 @@ LUA_FUNCTION_STATIC(DisconnectClientSilent)
 {
 	int inUserID = LUA->CheckNumber(1);
 
-	if (inUserID <= 0 || inUserID > GmNetwork::BaseServer::p_BaseServer->GetMaxClients()) {
+	if (inUserID <= 0) {
 		LUA->PushBool(false);
 		return 1;
 	}
