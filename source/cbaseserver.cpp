@@ -166,7 +166,7 @@ void GmNetwork::BaseServer::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 	if (!p_IServer)
 		LUA->ThrowError("Unable to locate IServer!");
 
-	p_BaseServer = reinterpret_cast<CBaseServer*>(p_IServer);
+	p_BaseServer = dynamic_cast<CBaseServer*>(p_IServer);
 	if (!p_BaseServer)
 		LUA->ThrowError("Unable to get CBaseServer!");
 
