@@ -40,9 +40,9 @@ jobs:
     - name: "[x32] Uploading"
       uses: actions/upload-artifact@v3
       with:
-        name: gmsv_network_win32.dll
+        name: gmsv_network_win32
+        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
         if-no-files-found: error
-        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32
         
     - name: Clone garrysmod_common/x86-64-support-sourcesdk
       uses: actions/checkout@v3
@@ -64,6 +64,6 @@ jobs:
     - name: "[x64] Uploading"
       uses: actions/upload-artifact@v3
       with:
-        name: gmsv_network_win64.dll
+        name: gmsv_network_win64
+        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
         if-no-files-found: error
-        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64
