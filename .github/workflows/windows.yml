@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: 'recursive'
         
@@ -16,7 +16,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
     
     - name: Clone garrysmod_common/master
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: 'danielga/garrysmod_common'
         ref: 'master'
@@ -38,14 +38,14 @@ jobs:
         msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
 
     - name: "[x32] Uploading"
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: gmsv_network_win32.dll
         if-no-files-found: error
-        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
+        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32
         
     - name: Clone garrysmod_common/x86-64-support-sourcesdk
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: 'danielga/garrysmod_common'
         ref: 'x86-64-support-sourcesdk'
@@ -62,8 +62,8 @@ jobs:
         msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
 
     - name: "[x64] Uploading"
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: gmsv_network_win64.dll
         if-no-files-found: error
-        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
+        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64
