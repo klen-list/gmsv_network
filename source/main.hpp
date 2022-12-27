@@ -5,7 +5,7 @@
 	#pragma once
 #endif
 
-#define _MODULE_VERSION_ "0.0.7"
+#define _MODULE_VERSION_ "0.0.8"
 
 #include <GarrysMod/Lua/Interface.h>
 #include <GarrysMod/Lua/LuaInterface.h>
@@ -13,6 +13,9 @@
 #include <GarrysMod/InterfacePointers.hpp>
 
 #include <detouring/hook.hpp>
+#include <detouring/classproxy.hpp>
+
+#include <scanning/scanadv.h>
 
 #include <player.h>
 #include <iclient.h>
