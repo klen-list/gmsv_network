@@ -35,13 +35,13 @@ void GmNetwork::ErrHandler::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	const auto HandleClientLuaError = FunctionPointers::CBasePlayer_HandleClientLuaError();
 	if (!HandleClientLuaError)
-		LUA->ThrowError("Unable to locate CBasePlayer::HandleClientLuaError!");
+		LUA->ThrowError("\n[GmNetwork] Unable to locate CBasePlayer::HandleClientLuaError!\n\n");
 
 	if (!DHook_HandleClientError.Create(
 		Detouring::Hook::Target(reinterpret_cast<void*>(HandleClientLuaError)),
 		reinterpret_cast<void*>(&Detour_HandleClientError)
 	))
-		LUA->ThrowError("Unable to detour CBasePlayer::HandleClientLuaError!");
+		LUA->ThrowError("\n[GmNetwork] Unable to detour CBasePlayer::HandleClientLuaError!\n\n");
 
 	PUSHFUNC(EnableClientErrHandle)
 
