@@ -13,13 +13,14 @@ if not gmcommon then
 end
 
 include(gmcommon or "third-party/garrysmod_common")
-include "third-party/lua_threading"
+include "third-party/gmc_scanning_advanced"
 
 CreateWorkspace { name = "network" }
 	CreateProject { serverside = true }
 		IncludeHelpersExtended()
+		IncludeSDKCommon()
 		IncludeSDKTier0()
 		IncludeSDKTier1()
-		IncludeSDKCommon()
+		IncludeScanning()
+		IncludeScanningAdvanced()
 		IncludeDetouring()
-		IncludeLuaThreading()

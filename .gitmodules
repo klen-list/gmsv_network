@@ -1,0 +1,6 @@
+[submodule "third-party/gmc_scanning_advanced"]
+	path = third-party/gmc_scanning_advanced
+	url = https://github.com/klen-list/gmc_scanning_advanced
+[submodule "third-party/garrysmod_common"]
+	path = third-party/garrysmod_common
+	url = https://github.com/danielga/garrysmod_common
