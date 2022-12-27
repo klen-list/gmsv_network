@@ -3,6 +3,7 @@
 #include "errhandler.hpp"
 #include "cbaseserver.hpp"
 #include "engineserver.hpp"
+#include "processcmd.hpp"
 
 using namespace GmNetwork;
 
@@ -18,6 +19,7 @@ GMOD_MODULE_OPEN()
 	ILuaServer->SetField(-2, "Version");
 
 	ErrHandler::Initialize(ILuaServer);
+	ProcessCmd::CBaseClientProxy::Singleton.Initialize(ILuaServer);
 	BaseServer::Initialize(ILuaServer);
 	EngineServer::Initialize(ILuaServer);
 
@@ -31,6 +33,7 @@ GMOD_MODULE_OPEN()
 GMOD_MODULE_CLOSE()
 {
 	ErrHandler::Deinitialize(ILuaServer);
+	ProcessCmd::CBaseClientProxy::Singleton.Deinitialize(ILuaServer);
 	BaseServer::Deinitialize(ILuaServer);
 	EngineServer::Deinitialize(ILuaServer);
 
