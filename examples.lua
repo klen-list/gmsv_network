@@ -8,11 +8,14 @@ do -- Client error report handle
 	hook.Add("GmNetwork.OnClientErr", "Example", function(num_idx, str_err)
 		print(Entity(num_idx)) -- Player
 		print("Error: ", str_err)
-		return true -- prevent default error action (console print and clientside_errors.txt log)
+
+		return true -- prevent default error actions (console print, clientside_errors.txt log, lua_error_url send)
 	end)
 end
 
 do -- Client request to server concommand handle
+	gmnetwork.EnableClientProcessCmd(true)
+
 	hook.Add("GmNetwork.ProcessCmd", "Example", function(num_userid, str_cmd)
 		local ply = Player(num_userid)
 		if not IsValid(ply) then return true end
