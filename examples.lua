@@ -17,7 +17,7 @@ do -- Client request to server concommand handle
 		local ply = Player(num_userid)
 		if not IsValid(ply) then return true end
 		
-		Msg(Format("[ProcessCmds] Игрок '%s' (id: %s | ip: %s) команда: '%s'\n", ply:Nick(), ply:SteamID(), ply:IPAddress(), str_cmd))
+		Msg(Format("[ProcessCmds] Player '%s' (id: %s | ip: %s) command: '%s'\n", ply:Nick(), ply:SteamID(), ply:IPAddress(), str_cmd))
 		
 		-- Request block example
 		if str_cmd:find"status" then
