@@ -8,9 +8,7 @@ CBaseClientProxy CBaseClientProxy::Singleton;
 LUA_FUNCTION_STATIC(EnableClientProcessCmd)
 {
 	LUA->CheckType(1, GarrysMod::Lua::Type::BOOL);
-	LUA->PushBool(LUA->GetBool(1) ?
-		CBaseClientProxy::Singleton.EnableHook(true) :
-		CBaseClientProxy::Singleton.EnableHook(false));
+	LUA->PushBool(CBaseClientProxy::Singleton.EnableHook(LUA->GetBool(1)));
 	return 1;
 }
 
@@ -31,7 +29,7 @@ bool CBaseClientProxy::EnableHook(bool enable)
 {
 	auto& self = CBaseClientProxy::Singleton;
 
-	if (enable && self.IsHooked(ProcessStringCmd_original))
+	if (enable && !self.IsHooked(ProcessStringCmd_original))
 	{
 		if (!Hook(ProcessStringCmd_original, &CBaseClientProxy::ProcessStringCmd))
 		{
