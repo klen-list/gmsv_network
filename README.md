@@ -26,7 +26,8 @@ Check [example](https://github.com/klen-list/gmsv_network/blob/main/examples.lua
 ## Planned
 Hook for `GarrysMod::AutoRefresh::HandleLuaFileChange(std::string const&)`  
 Ability to mark entities with function like `SetTransmitControl`  
-Hook when marked entities about to writed in `svc_PacketEntities`
+Hook when marked entities about to writed in `svc_PacketEntities`  
+Functions/Hooks for `g_GameEventManager` with ability suppress and create events
 
 ## Requirements
 
@@ -34,13 +35,13 @@ Hook when marked entities about to writed in `svc_PacketEntities`
 2. [Scanning Advanced][2] - My helpful module contains symbols for sigscanning with garrysmod\_common. Should be installed in `third-party` folder with name [gmc\_scanning\_advanced][2].
 3. (Linux) Installed `gcc-multilib` package.
 
-All requirements already added in repository as submodules. <ins>Make sure that you them clone with recursive!</ins>  
+All requirements already added in repository as submodules. <ins>Make sure that you clone them with recursive!</ins>  
 `git clone https://github.com/klen-list/gmsv_network --recursive`
 
 ## Compiling
 1. Download or install [premake5](https://premake.github.io/download)
 2. Enter the project folder and run:
-- `./premake5 vs2019` (**Windows** with installed `Visual Studio 2019` and locally placed premake5.exe)
+- `./premake5.exe vs2019` (**Windows** with installed `Visual Studio 2019` and locally placed premake5.exe)
 - `./premake5 gmake` (**Linux** with installed `build-essential` and locally placed premake5)  
 ⚠️ If you catch `Error: module 'premake-export-compile-commands/export-compile-commands' not found` you **didn't clone submodules correctly!** Read above about clone command.  
 3. Move to `projects/{os_platform}/{vs2019|gmake}` and run `gm_network.sln` (Windows) or run `make` command (Linux)
