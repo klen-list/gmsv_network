@@ -4,7 +4,7 @@ A Garry's Mod binary serverside module that provide GLua access to basic server 
 
 ## Available functions and hooks
 
-Check [example](https://github.com/klen-list/gmsv_network/blob/main/premake5.lua) for detailed usage. All functions placed in global `gmnetwork` table.
+Check [example](https://github.com/klen-list/gmsv_network/blob/main/examples.lua) for detailed usage. All functions placed in global `gmnetwork` table.
 
 **CBaseServer**:  
 `GetNumClients` `GetNumProxies` `GetNumFakeClients` `GetMaxClients` `GetUDPPort` `GetClientCount` `GetTime` `GetTick` `GetTickInterval` `GetName` `GetMapName` `GetSpawnCount` `GetNumClasses` `GetClassBits` `GetNetStats` `GetNumPlayers` `GetCPUUsage` `IsActive` `IsLoading` `IsDedicated` `IsPaused` `IsMultiplayer` `IsPausable` `IsHLTV` `IsReplay` `GetPassword` `SetMaxClients` `SetPaused` `SetPassword` `DisconnectClient` `DisconnectClientSilent`
