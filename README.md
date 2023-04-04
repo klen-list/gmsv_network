@@ -38,7 +38,7 @@ All requirements already added in repository as submodules. <ins>Make sure that 
 `git clone https://github.com/klen-list/gmsv_network --recursive`
 
 ## Compiling
-1. Download or install premake5
+1. Download or install [premake5](https://premake.github.io/download)
 2. Enter the project folder and run:
 - `./premake5 vs2019` (**Windows** with installed `Visual Studio 2019` and locally placed premake5.exe)
 - `./premake5 gmake` (**Linux** with installed `build-essential` and locally placed premake5)  
