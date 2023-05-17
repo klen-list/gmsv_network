@@ -21,11 +21,11 @@ void GmNetwork::EngineServer::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 
 	OpenLib(LUA);
 
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: IVEngineServer functions imported.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: IVEngineServer functions\n");
 }
 
 void GmNetwork::EngineServer::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	p_EngineServer = nullptr;
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: IVEngineServer pointer destroyed.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: IVEngineServer functions\n");
 }

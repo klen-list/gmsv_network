@@ -172,11 +172,11 @@ void GmNetwork::BaseServer::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 
 	OpenLib(LUA);
 
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: CBaseServer functions imported.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: CBaseServer functions\n");
 }
 
 void GmNetwork::BaseServer::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
 	p_BaseServer = nullptr;
-	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: CBaseServer pointer destroyed.\n");
+	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: CBaseServer functions\n");
 }

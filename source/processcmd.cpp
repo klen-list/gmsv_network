@@ -26,7 +26,7 @@ void CBaseClientProxy::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 	DisableHook(ProcessStringCmd_original);
 	PUSHFUNC(EnableClientProcessCmd)
 
-	lua->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: CBaseClient::ProcessStringCmd.\n");
+	lua->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: CBaseClient::ProcessStringCmd\n");
 }
 
 bool CBaseClientProxy::EnableHookInternal(bool enable)
