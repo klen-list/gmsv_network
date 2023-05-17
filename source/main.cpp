@@ -4,6 +4,7 @@
 #include "cbaseserver.hpp"
 #include "engineserver.hpp"
 #include "processcmd.hpp"
+#include "autorefresh.hpp"
 
 using namespace GmNetwork;
 
@@ -12,7 +13,7 @@ GarrysMod::Lua::ILuaInterface* GmNetwork::ILuaServer;
 GMOD_MODULE_OPEN()
 {
 	ILuaServer = reinterpret_cast<GarrysMod::Lua::ILuaInterface*>(LUA);
-
+	
 	ILuaServer->CreateTable();
 
 	ILuaServer->PushString(_MODULE_VERSION_);
@@ -22,10 +23,11 @@ GMOD_MODULE_OPEN()
 	ProcessCmd::CBaseClientProxy::Singleton.Initialize(ILuaServer);
 	BaseServer::Initialize(ILuaServer);
 	EngineServer::Initialize(ILuaServer);
+	AutoRefresh::Initialize(ILuaServer);
 
 	ILuaServer->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
 
-	ILuaServer->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Version %s by Klen_list loaded.\n", _MODULE_VERSION_);
+	ILuaServer->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Version %s by Klen_list loaded!\n", _MODULE_VERSION_);
 
 	return 0;
 }
@@ -36,6 +38,7 @@ GMOD_MODULE_CLOSE()
 	ProcessCmd::CBaseClientProxy::Singleton.Deinitialize(ILuaServer);
 	BaseServer::Deinitialize(ILuaServer);
 	EngineServer::Deinitialize(ILuaServer);
+	AutoRefresh::Deinitialize(ILuaServer);
 
 	LUA->PushNil();
 	LUA->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
