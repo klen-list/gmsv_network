@@ -1,5 +1,8 @@
 #include "luaquicks.hpp"
+
+#pragma warning(disable: 4505)
 #include <GarrysMod/Lua/Helpers.hpp>
+#pragma warning(default: 4505)
 
 bool GmNetwork::LuaQuicks::PushHookCall(GarrysMod::Lua::ILuaInterface* LUA, const char* eventName)
 {
