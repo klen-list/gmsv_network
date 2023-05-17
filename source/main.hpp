@@ -13,9 +13,9 @@
 #include <GarrysMod/InterfacePointers.hpp>
 
 #include <detouring/hook.hpp>
-#include <detouring/classproxy.hpp>
 
 #include <scanning/scanadv.h>
+#include <scanning/advproxy.h>
 
 #include <player.h>
 #include <iclient.h>
