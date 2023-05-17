@@ -29,6 +29,20 @@ do -- Client request to server concommand handle
 	end)
 end
 
+do -- Lua auto-refresh handle
+	gmnetwork.EnableLuaAutoRefreshHandle(true)
+
+	hook.Add("GmNetwork.OnLuaRefresh", "Example", function(file_path)
+		print("Auto-refreshed: ", file_path)
+		
+		-- Refresh block example
+		-- (blocking there didn't tested and not guaranted!)
+		if file_path:find"myfile.lua" then
+			return true
+		end
+	end)
+end
+
 do -- Custom disconnect reason on server shutdown (built-in ply:Kick not works for this)
 	hook.Add("ShutDown", "Example", function()
 		for _, ply in ipairs(player.GetAll()) do
