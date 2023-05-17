@@ -42,5 +42,7 @@ bool GmNetwork::LuaQuicks::RunHookCall(GarrysMod::Lua::ILuaInterface* LUA, int a
 		return false;
 	}
 
+	LUA->Pop(-retC - 1);
+
 	return true;
 }
