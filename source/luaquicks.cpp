@@ -1,7 +1,10 @@
 #include "luaquicks.hpp"
+#include <GarrysMod/Lua/Helpers.hpp>
 
 bool GmNetwork::LuaQuicks::PushHookCall(GarrysMod::Lua::ILuaInterface* LUA, const char* eventName)
 {
+	LUA->PushCFunction(LuaHelpers::LuaErrorTraceback);
+
 	LUA->GetField(GarrysMod::Lua::INDEX_GLOBAL, "hook");
 
 	if (!LUA->IsType(-1, GarrysMod::Lua::Type::Table))
@@ -28,11 +31,13 @@ bool GmNetwork::LuaQuicks::PushHookCall(GarrysMod::Lua::ILuaInterface* LUA, cons
 
 bool GmNetwork::LuaQuicks::RunHookCall(GarrysMod::Lua::ILuaInterface* LUA, int argC, int retC)
 {
-	if (LUA->PCall(argC + 1, retC, 0) != 0)
+	if (LUA->PCall(argC + 1, retC, -argC - 3) != 0)
 	{
 		LUA->ErrorNoHalt("\n[GmNetwork] Error: %s\n\n", LUA->GetString(-1));
-		LUA->Pop();
+		LUA->Pop(2);
+
 		return false;
 	}
+
 	return true;
 }
