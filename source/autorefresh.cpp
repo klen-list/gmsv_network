@@ -1,7 +1,7 @@
 #include "autorefresh.hpp"
 #include "luaquicks.hpp"
 
-LUA_FUNCTION_STATIC(EnableClientAutoRefresh)
+LUA_FUNCTION_STATIC(EnableLuaAutoRefreshHandle)
 {
 	LUA->PushBool(LUA->GetBool() ?
 		GmNetwork::AutoRefresh::DHook_HandleChange_Lua.Enable() :
@@ -43,7 +43,7 @@ void GmNetwork::AutoRefresh::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 	))
 		LUA->ThrowError("\n[GmNetwork] Unable to detour GModAutoRefresh::HandleLuaFileChange!\n\n");
 
-	PUSHFUNC(EnableClientAutoRefresh)
+	PUSHFUNC(EnableLuaAutoRefreshHandle)
 
 	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Loading: GModAutoRefresh::HandleLuaFileChange\n");
 }
