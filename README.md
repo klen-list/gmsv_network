@@ -20,20 +20,26 @@ Check [example](https://github.com/klen-list/gmsv_network/blob/main/examples.lua
 `EnableClientProcessCmd`  
 [Hook] `GmNetwork.ProcessCmd (ply_id: number, cmd: string) -> prevent_default: any bool`
 
+**LuaAutoRefresh**:  
+`EnableLuaAutoRefreshHandle`  
+[Hook] `GmNetwork.OnLuaRefresh (file_path: string) -> prevent_default: any bool`
+
 **Other**:  
 `Version (string)`
 
 ## Planned
-Hook for `GarrysMod::AutoRefresh::HandleLuaFileChange(std::string const&)`  
-Ability to mark entities with function like `SetTransmitControl`  
-Hook when marked entities about to writed in `svc_PacketEntities`  
-Functions/Hooks for `g_GameEventManager` with ability suppress and create events
+Method to mark entities with function like `SetTransmitControl`  
+Hook when marked entities about to be writen in `svc_PacketEntities`, allow to suppress  
+Methods/Hooks for `g_GameEventManager` with ability suppress and create events  
+Hook when clients send `net_SetConVar` to server  
+Some methods and hooks for `vphysics` interface (?)  
+Hook when ents change their PVS for player (literally magic with `sv_ents_write.cpp`)  
 
 ## Requirements
 
 1. [Garrysmod Common][1] - A framework to facilitate the creation of compilations files (Visual Studio, make, XCode, etc). Simply set the environment variable `GARRYSMOD_COMMON` or the premake option `--gmcommon=path` to the path of your local copy of [garrysmod\_common][1].
 2. [Scanning Advanced][2] - My helpful module contains symbols for sigscanning with garrysmod\_common. Should be installed in `third-party` folder with name [gmc\_scanning\_advanced][2].
-3. (Linux) Installed `gcc-multilib` package.
+3. (Linux) Installed `gcc-multilib` and `g++-multilib` packages.
 
 All requirements already added in repository as submodules. <ins>Make sure that you clone them with recursive!</ins>  
 `git clone https://github.com/klen-list/gmsv_network --recursive`
