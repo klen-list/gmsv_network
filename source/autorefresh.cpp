@@ -14,10 +14,10 @@ ScanningAdvanced::GModAutoRefresh_HandleLuaFileChange_t HandleLuaFileChange;
 
 void __cdecl GmNetwork::AutoRefresh::Detour_HandleLuaFileChange(void* Src)
 {
-	const char* file = TYPEDIFF_WIN((const char*), *(const char**))Src;
+	std::string* file = reinterpret_cast<std::string*>(Src);
 
 	GmNetwork::LuaQuicks::PushHookCall(ILuaServer, "GmNetwork.OnLuaRefresh");
-	ILuaServer->PushString(file);
+	ILuaServer->PushString(file->c_str());
 	GmNetwork::LuaQuicks::RunHookCall(ILuaServer, 1, 1);
 
 	if (ILuaServer->IsType(-1, GarrysMod::Lua::Type::Bool))
