@@ -52,5 +52,16 @@ All requirements already added in repository as submodules. <ins>Make sure that 
 ⚠️ If you catch `Error: module 'premake-export-compile-commands/export-compile-commands' not found` you **didn't clone submodules correctly!** Read above about clone command.  
 3. Move to `projects/{os_platform}/{vs2019|gmake}` and run `gm_network.sln` (Windows) or run `make` command (Linux)
 
+## Stars
+
+<a href="https://star-history.com/#klen-list/gmsv_network&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=klen-list/gmsv_network&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=klen-list/gmsv_network&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=klen-list/gmsv_network&type=Date" />
+  </picture>
+</a>
+
+
 [1]: https://github.com/danielga/garrysmod_common
 [2]: https://github.com/klen-list/gmc_scanning_advanced
