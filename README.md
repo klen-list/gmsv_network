@@ -1,6 +1,8 @@
 # :wrench: gmsv_network :gear:
 
-A Garry's Mod binary serverside module that provide GLua access to basic server and client functions. Designed to replace the tracking of many events that require `gm_sourcenet` (which produces lua panic on many servers, corrupted message buffer reads, and decreased optimization). Currently under development.
+💪 All in one Garry's Mod binary module for x86 (x32) Linux/Windows dedicated server that provide access to various SourceEngine/GMOD methods and callbacks. Make your serverside lua scripts more optimized, powerfull and secure!   
+💡 Originally designed to replace the tracking of many events that require `gm_sourcenet` (which produces lua panic crashes, corrupted netchannel buffer read/write, and decreased optimization).  
+🪛 Currently under development. Feel free to request any new lua bindings you need, I can probably add them!
 
 ## Available functions and hooks
 
@@ -27,13 +29,30 @@ Check [example](https://github.com/klen-list/gmsv_network/blob/main/examples.lua
 **Other**:  
 `Version (string)`
 
-## Planned
-Method to mark entities with function like `SetTransmitControl`  
-Hook when marked entities about to be writen in `svc_PacketEntities`, allow to suppress  
-Methods/Hooks for `g_GameEventManager` with ability suppress and create events  
-Hook when clients send `net_SetConVar` to server  
-Some methods and hooks for `vphysics` interface (?)  
-Hook when ents change their PVS for player (literally magic with `sv_ents_write.cpp`)  
+## Worklist
+- [ ] Integrate bindings into existing glua classes/libraries, or create new ones.
+- [x] Simplified version of `ClientLuaError` from `gm_luaerror`, allow parsing errors on lua side
+- [x] Bindings for most of `CBaseServer` methods
+  - [ ] Bindings for `CBaseServer` broadcast methods
+- [ ] Bindings for most of `IVEngineServer` methods
+  - [x] Binding to RawServerCommand
+- [x] Binding a hook when client want execute serverside concommand (ProcessCmd) like binary module from myarena hosting, allow to block executing
+- [ ] Some GmodDataPack bindings (personal request from one server owner)
+  - [x] Binding a hook when datapack handle a lua file refresh
+  - [ ] Block a lua refresh in this hook (probably needed too)
+  - [ ] Binding to datapack HandleChange_Lua method like metastruct old code do
+- [ ] Create method to mark entities with method like `SetTransmitControl`
+- [ ] Binding a hook when marked entities change their PVS for players. Needed do a some magic with `sv_ents_write.cpp` (probably useful for own networked entity values system)
+- [ ] Binding a hook when marked entities and their childrens about to be writen in `svc_PacketEntities`, allow to suppress. Useful for accurate admin vanish instead spamming `SetPreventTransmit` calls
+- [ ] Bindings for `CGameEventManager` with ability suppress and create events. Also useful for ideal vanish
+- [ ] Binding a hook when server handle new value of `FCVAR_USERINFO` convar from client. Allow handle changes without spamming `GetInfo/GetInfoNum` calls. (Requested by me #1995 in garrysmod-requests)
+- [ ] Some bindings for `vphysics` (Most of this done in my other private module)
+  - [ ] Bindings to some `CCollisionEvent` callbacks (detouring a friction system warning already used by my as good anticrash addition, i also seen this hook in metastruct old code)
+  - [ ] Bindings to `IPhysicsObjectEvent` callbacks (related to `CCollisionEvent` bindings, just for #1923 in garrysmod-requests about adding hook when physobj going sleep)
+  - [ ] Bindings to `CPhysicsObject`, including methods that are not exposed to `IPhysicsObject` (including #2234 in garrysmod-requests about adding `PhysObj:GetBuoyancyRatio`)
+  - [ ] Binding to `PhysIsInCallback` (mentioned by #894 in garrysmod-requests)
+  - [ ] Binding to `PhysicsGameSystem` and fields like `m_bPaused` that allow pause a physics
+  - [ ] Bindings to `IPhysicsEnvironment` (probably)
 
 ## Requirements
 
