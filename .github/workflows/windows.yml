@@ -1,6 +1,10 @@
 name: Windows
 on:
   push:
+    paths:
+      - 'premake5.lua'
+      - 'source/**'
+      - 'third-party/**'
   workflow_dispatch:
 
 jobs:
@@ -28,16 +32,16 @@ jobs:
          curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-windows.zip -o premake.zip
          tar -xf premake.zip
 
-    - name: "Generate Project"
+    - name: Generate Project
       run: |
         ./premake5.exe vs2022
 
-    - name: "Building"
+    - name: Building
       run: |
         cd projects/windows/vs2022
         msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
 
-    - name: "Uploading"
+    - name: Uploading
       uses: actions/upload-artifact@v4
       with:
         name: gmsv_network_win32
