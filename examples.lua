@@ -43,7 +43,7 @@ do -- Lua auto-refresh handle
 	end)
 end
 
-do -- Custom disconnect reason on server shutdown (built-in ply:Kick not works for this)
+do -- Custom disconnect reason on server shutdown (built-in 'ply:Kick' and 'game.KickID' can't do this)
 	hook.Add("ShutDown", "Example", function()
 		for _, ply in ipairs(player.GetAll()) do
 			gmnetwork.DisconnectClient(ply:UserID(), "Server is restarting. This may take 2-5 min.")
