@@ -1,6 +1,6 @@
 name: Windows
 on:
-  #push:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -8,15 +8,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
         
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v2
     
     - name: Clone garrysmod_common/master
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: 'danielga/garrysmod_common'
         ref: 'master'
@@ -25,45 +25,21 @@ jobs:
 
     - name: Install Premake
       run: |
-         curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta1/premake-5.0.0-beta1-windows.zip -o premake.zip
+         curl -L https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-windows.zip -o premake.zip
          tar -xf premake.zip
 
-    - name: "[x32] Generate Project"
+    - name: "Generate Project"
       run: |
-        ./premake5.exe vs2019
+        ./premake5.exe vs2022
 
-    - name: "[x32] Building"
+    - name: "Building"
       run: |
-        cd projects/windows/vs2019
+        cd projects/windows/vs2022
         msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=Win32 -m network.sln
 
-    - name: "[x32] Uploading"
-      uses: actions/upload-artifact@v3
+    - name: "Uploading"
+      uses: actions/upload-artifact@v4
       with:
         name: gmsv_network_win32
         path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
-        if-no-files-found: error
-        
-    - name: Clone garrysmod_common/x86-64-support-sourcesdk
-      uses: actions/checkout@v3
-      with:
-        repository: 'danielga/garrysmod_common'
-        ref: 'x86-64-support-sourcesdk'
-        path: 'third-party/garrysmod_common'
-        submodules: 'recursive'
-    
-    - name: "[x64] Generate Project"
-      run: |
-        ./premake5.exe vs2019
-
-    - name: "[x64] Building"
-      run: |
-        cd projects/windows/vs2019
-        msbuild /p:Configuration=ReleaseWithSymbols /p:Platform=x64 -m network.sln
-
-    - name: "[x64] Uploading"
-      uses: actions/upload-artifact@v3
-      with:
-        name: gmsv_network_win64
-        path: projects/windows/vs2019/x86_64/ReleaseWithSymbols/gmsv_network_win64.dll
         if-no-files-found: error
