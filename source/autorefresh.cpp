@@ -12,12 +12,10 @@ LUA_FUNCTION_STATIC(EnableLuaAutoRefreshHandle)
 
 ScanningAdvanced::GModAutoRefresh_HandleLuaFileChange_t HandleLuaFileChange;
 
-void __cdecl GmNetwork::AutoRefresh::Detour_HandleLuaFileChange(void* Src)
+void __cdecl GmNetwork::AutoRefresh::Detour_HandleLuaFileChange(const std::string& file)
 {
-	std::string* file = reinterpret_cast<std::string*>(Src);
-
 	GmNetwork::LuaQuicks::PushHookCall(ILuaServer, "GmNetwork.OnLuaRefresh");
-	ILuaServer->PushString(file->c_str());
+	ILuaServer->PushString(file.c_str());
 	GmNetwork::LuaQuicks::RunHookCall(ILuaServer, 1, 1);
 
 	if (ILuaServer->IsType(-1, GarrysMod::Lua::Type::Bool))
@@ -28,7 +26,7 @@ void __cdecl GmNetwork::AutoRefresh::Detour_HandleLuaFileChange(void* Src)
 
 	ILuaServer->Pop();
 
-	DHook_HandleChange_Lua.GetTrampoline<ScanningAdvanced::GModAutoRefresh_HandleLuaFileChange_t>()(Src);
+	DHook_HandleChange_Lua.GetTrampoline<ScanningAdvanced::GModAutoRefresh_HandleLuaFileChange_t>()(file);
 }
 
 void GmNetwork::AutoRefresh::Initialize(GarrysMod::Lua::ILuaInterface* LUA)

@@ -34,7 +34,7 @@ bool CBaseClientProxy::EnableHookInternal(bool enable)
 	return (enable ? EnableHook(ProcessStringCmd_original) : DisableHook(ProcessStringCmd_original));
 }
 
-bool TYPEDIFF_WIN86(__thiscall, __cdecl) CBaseClientProxy::ProcessStringCmd(uintptr_t* cmd)
+bool DIFF_WINUNIX(__thiscall, __cdecl) CBaseClientProxy::ProcessStringCmd(uintptr_t* cmd)
 {
 	auto& self = CBaseClientProxy::Singleton;
 	CBaseClient* basecl = this->This();
@@ -43,7 +43,7 @@ bool TYPEDIFF_WIN86(__thiscall, __cdecl) CBaseClientProxy::ProcessStringCmd(uint
 	// mov     [esp+4], ecx
 	const char* buf = reinterpret_cast<const char*>(*(cmd + 4));
 
-	int playerid = *(reinterpret_cast<uintptr_t*>(basecl) + TYPEDIFF_WIN(3, 5));
+	int playerid = *(reinterpret_cast<uintptr_t*>(basecl) + DIFF_WINUNIX(3, 5));
 
 	if (!GmNetwork::LuaQuicks::PushHookCall(self.lua, "GmNetwork.ProcessCmd"))
 		return Call(self.ProcessStringCmd_original, cmd);

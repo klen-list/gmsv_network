@@ -20,7 +20,7 @@ namespace GmNetwork::ProcessCmd
 		static CBaseClientProxy Singleton;
 
 	private:
-		bool TYPEDIFF_WIN86(__thiscall, __cdecl) ProcessStringCmd(uintptr_t* cmd);
+		bool DIFF_WINUNIX(__thiscall, __cdecl) ProcessStringCmd(uintptr_t* cmd);
 
 		ScanningAdvanced::CBaseClient_ProcessStringCmd_t ProcessStringCmd_original = nullptr;
 		GarrysMod::Lua::ILuaInterface* lua = nullptr;
