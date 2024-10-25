@@ -10,6 +10,18 @@ using namespace GmNetwork;
 
 GarrysMod::Lua::ILuaInterface* GmNetwork::ILuaServer;
 
+LUA_FUNCTION_STATIC(GetEnv)
+{
+	char* env = std::getenv(LUA->CheckString(1));
+	
+	if (!env)
+		LUA->PushNil();
+	else
+		LUA->PushString(env);
+
+	return 1;
+}
+
 GMOD_MODULE_OPEN()
 {
 	ILuaServer = reinterpret_cast<GarrysMod::Lua::ILuaInterface*>(LUA);
@@ -24,6 +36,8 @@ GMOD_MODULE_OPEN()
 	BaseServer::Initialize(ILuaServer);
 	EngineServer::Initialize(ILuaServer);
 	AutoRefresh::Initialize(ILuaServer);
+
+	PUSHFUNC(GetEnv);
 
 	ILuaServer->SetField(GarrysMod::Lua::INDEX_GLOBAL, "gmnetwork");
 

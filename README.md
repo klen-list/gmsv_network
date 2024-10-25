@@ -27,7 +27,7 @@ Check [example](https://github.com/klen-list/gmsv_network/blob/main/examples.lua
 [Hook] `GmNetwork.OnLuaRefresh (file_path: string) -> prevent_default: any bool`
 
 **Other**:  
-`Version (string)`
+`Version (string)` `(nil|string) GetEnv (string)`
 
 ## Worklist
 - [ ] Integrate bindings into existing glua classes/libraries, or create new ones.

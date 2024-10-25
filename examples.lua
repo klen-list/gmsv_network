@@ -62,9 +62,16 @@ end
 do -- Bypass command blacklist without alias
 	-- Example 1
 	local cmd = "rcon_password "
-	for i = 12, 25 do
-		cmd = cmd .. string.char(math.random(97, 122))
+	local passEnv = gmnetwork.GetEnv"RCON_PASS"
+
+	if passEnv then
+		cmd = cmd .. passEnv
+	else
+		for i = 12, 25 do
+			cmd = cmd .. string.char(math.random(97, 122))
+		end
 	end
+
 	gmnetwork.GMOD_RawServerCommand(cmd)
 	
 	-- Example 2
