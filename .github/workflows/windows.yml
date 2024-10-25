@@ -41,5 +41,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: gmsv_network_win32
-        path: projects/windows/vs2019/x86/ReleaseWithSymbols/gmsv_network_win32.dll
+        path: projects/windows/vs2022/x86/ReleaseWithSymbols/gmsv_network_win32.dll
         if-no-files-found: error
