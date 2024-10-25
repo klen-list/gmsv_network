@@ -77,18 +77,18 @@ LUA_FUNCTION_STATIC(DisconnectClient)
 		LUA->PushBool(false);
 		return 1;
 	}
-		
-	for (auto nSlot = 0; nSlot < GmNetwork::BaseServer::p_BaseServer->GetMaxClients(); ++nSlot) {
+
+	for (auto nSlot = 0; nSlot < GmNetwork::BaseServer::p_BaseServer->GetClientCount(); ++nSlot) {
 		IClient* client = GmNetwork::BaseServer::p_BaseServer->GetClient(nSlot);
 		if (!client->IsConnected()) continue;
+
 		if (client->GetUserID() == inUserID) {
 			GmNetwork::BaseServer::p_BaseServer->DisconnectClient(client, reason);
+
 			LUA->PushBool(true);
 			return 1;
 		}
 	}
-
-	GmNetwork::ILuaServer->Msg("[GmNetwork] Client with userid %i not exists.\n", inUserID);
 
 	LUA->PushBool(false);
 	return 1;
@@ -103,19 +103,24 @@ LUA_FUNCTION_STATIC(DisconnectClientSilent)
 		return 1;
 	}
 
-	for (auto nSlot = 0; nSlot < GmNetwork::BaseServer::p_BaseServer->GetMaxClients(); ++nSlot) {
+	for (auto nSlot = 0; nSlot < GmNetwork::BaseServer::p_BaseServer->GetClientCount(); ++nSlot) {
 		IClient* client = GmNetwork::BaseServer::p_BaseServer->GetClient(nSlot);
 		if (!client->IsConnected()) continue;
+
 		if (client->GetUserID() == inUserID) {
 			GmNetwork::BaseServer::p_BaseServer->RemoveClientFromGame(reinterpret_cast<CBaseClient*>(client));
-			client->GetNetChannel()->Shutdown(NULL);
+
+			if (!client->IsFakeClient())
+			{
+				client->GetNetChannel()->Shutdown(NULL);
+			}
+
 			client->Clear();
+
 			LUA->PushBool(true);
 			return 1;
 		}
 	}
-
-	GmNetwork::ILuaServer->Msg("[GmNetwork] Client with userid %i not exists.\n", inUserID);
 
 	LUA->PushBool(false);
 	return 1;
