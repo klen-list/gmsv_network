@@ -48,6 +48,8 @@ void GmNetwork::AutoRefresh::Initialize(GarrysMod::Lua::ILuaInterface* LUA)
 
 void GmNetwork::AutoRefresh::Deinitialize(GarrysMod::Lua::ILuaInterface* LUA)
 {
+	DHook_HandleChange_Lua.Disable();
 	DHook_HandleChange_Lua.Destroy();
+
 	LUA->MsgColour(Color(161, 170, 255, 255), "[GmNetwork] Unloading: GModAutoRefresh::HandleLuaFileChange\n");
 }
